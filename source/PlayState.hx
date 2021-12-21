@@ -58,12 +58,21 @@ import sys.FileSystem;
 
 #if mobileC
 import ui.Mobilecontrols;
+import ui.FlxVirtualpad;
+#end
+#if sys
+import sysFileSystem;
 #end
 
 using StringTools;
 
 class PlayState extends MusicBeatState
 {
+    #if mobileC
+    var mcontrols:Mobilecontrols;
+    var _vpad: FlxVirtualpad;
+    #end
+    
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
@@ -1042,12 +1051,22 @@ class PlayState extends MusicBeatState
 			{
 				case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
 					controls.setVirtualPadNOTES(mcontrols._virtualPad, FULL, NONE);
+					_ vpad = new FlxvirtualPad(NONE, A);
+                    _vpad.alpha=0.75;
+                    _upad.cameras [camHUD];
+                    if(Paths.format ToSongPath(curSong) == 'termination')
+                         this.add(_vpad);
 				case HITBOX:
 					controls.setHitBoxNOTES(mcontrols._hitbox);
+					_ vpad = new FlxvirtualPad(NONE, A);
+                    _vpad.alpha=0.75;
+                    _upad.cameras [camHUD];
+                    if(Paths.format ToSongPath(curSong) == 'termination')
+                         this.add(_vpad);
 				default:
 			}
-			trackedinputsNOTES = controls.trackedinputsNOTES;
-			controls.trackedinputsNOTES = [];
+			trackedinputsNOTES = controls.trackedinputs;
+			controls.trackedinputs = [];
 
 			var camcontrol = new FlxCamera();
 			FlxG.cameras.add(camcontrol);
